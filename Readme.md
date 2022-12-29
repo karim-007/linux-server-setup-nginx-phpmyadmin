@@ -187,6 +187,16 @@ location /phpmyadmin {
   #till you dont see phpmyadmin then follow the next step
 ```
 
+### file upload size change
+```bash
+sudo nano /etc/php/7.4/fpm/php.ini
+#find and change following this
+memory_limit = 512M 
+post_max_size = 50M  
+upload_max_filesize = 50M
+sudo service nginx restart
+```
+
 ### server security setup
 
 ```bash
@@ -209,6 +219,80 @@ sudo fail2ban-client status
 sudo fail2ban-client status sshd
 sudo apparmor_status
 sudo fail2ban-client status sshd
+```
+
+### certboat ssl install nginx
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo ufw allow 'Nginx Full'
+sudo ufw delete allow 'Nginx HTTP'
+sudo ufw status
+sudo certbot --nginx
+```
+
+### cron tab
+```bash
+crontab -e
+crontab -l
+sudo /etc/init.d/cron restart
+```
+
+### supervisor setup
+```bash
+cd /etc/supervisor/conf.d
+sudo supervisorctl status
+sudo supervisorctl restart process_name
+```
+
+### Basic info view
+```bash
+#Check free memory before
+free -m
+
+#disk use
+df -h
+
+#ind directory size
+du -hs /path/to/directory
+
+#single dev size view
+du -h --max-depth=1
+
+#details view
+du -h | sort -h
+```
+
+### Swap memory create
+```bash
+mkdir -p /var/_swap_
+cd /var/_swap_
+
+#Here, 2G ~ 2GB of swap memory. Feel free to add MORE
+sudo fallocate -l 2G swapfile
+
+chmod 600 swapfile
+mkswap swapfile
+swapon swapfile
+#Automatically mount this swap partition at startup
+echo "/var/_swap_/swapfile none swap sw 0 0" >> /etc/fstab
+
+#Check free memory after
+free -m
+```
+
+### git repo dublicate
+```bash
+https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository
+git clone --bare githubrepurl
+git push --mirror githubrepurl
+```
+
+### gitub url change
+```bash
+git remote set-url origin githubrepurl
+or
+git remote add origin githubrepurl
+git remote -v
 ```
 
 
