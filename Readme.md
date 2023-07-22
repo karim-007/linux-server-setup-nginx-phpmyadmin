@@ -122,7 +122,7 @@ SET foreign_key_checks = 1; #after import enable forign key
 	location ~ \.php$ {
         try_files $fastcgi_script_name =404;
         include fastcgi_params;
-        fastcgi_pass  unix:/run/php/php7.4-fpm.sock;
+        fastcgi_pass  unix:/run/php/php8.1-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param DOCUMENT_ROOT  $realpath_root;
         fastcgi_param SCRIPT_FILENAME   $realpath_root$fastcgi_script_name;
@@ -152,7 +152,7 @@ location /phpmyadmin {
     location ~ ^/phpmyadmin/(.+\.php)$ {
     try_files $uri =404;
     root /usr/share/;
-    fastcgi_pass unix:/run/php/php8.0-fpm.sock;
+    fastcgi_pass unix:/run/php/php8.1-fpm.sock;
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     include /etc/nginx/fastcgi_params;
@@ -296,4 +296,4 @@ git remote -v
 ```
 
 
-Copyright 2022 [md abdul karim](https://github.com/karim-007).
+Copyright 2023 [md abdul karim](https://github.com/karim-007).
